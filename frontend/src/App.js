@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react'
 // import sampleData from './sample.json'
 import weeklyData from './weekly.json'
 import Chart from 'react-apexcharts'
+import Search from './Search'
 
 function App() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [allData, setAllData] = useState({})
   const [price, setPrice] = useState(0)
+
   // const [aYear, setAYear] = useState([])
   // const [ytd, setYtd] = useState([])
   // const [threeMonths, setThreeMonths] = useState([])
@@ -37,6 +39,7 @@ function App() {
 
   return (
     <div>
+      <Search />
       {
         isLoaded &&
         <div>
@@ -77,7 +80,7 @@ function App() {
                 x: { show: false },
               },
             }}
-            type='line'
+            // type='line'
             height={350}
           />
         </div>

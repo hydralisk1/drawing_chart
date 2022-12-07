@@ -1,0 +1,26 @@
+/* TODO Add site wide styles */
+.search-container {
+    position: relative;
+}
+
+.search-result {
+    position: absolute;
+    list-style: none;
+    background-color: white;
+    border: 1px solid darkgray;
+    width: 300px;
+    padding: 0;
+    top: 10px;
+    z-index: 99;
+}
+
+.result-item {
+    cursor: pointer;
+    background-color: white;
+    transition: background-color 0.2s ease;
+    padding: 4px 1rem;
+}
+
+.result-item:hover {
+    background-color: #c8c8c8;
+}
