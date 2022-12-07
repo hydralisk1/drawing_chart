@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
+import { TickerContext } from './TickerContext'
 
 const Search = () => {
     const [keyword, setKeyword] = useState('')
     const [showSearchRes, setShowSearchRes] = useState(false)
     const [isSearchLoaded, setIsSearchLoaded] = useState(false)
     const [searchRes, setSearchRes] = useState([])
+    const { ticker, setTicker } = useContext(TickerContext)
+
     // let searchTimer = null
 
     const searchInput = e => {
@@ -30,6 +33,7 @@ const Search = () => {
                 setSearchRes(res)
                 setShowSearchRes(true)
                 setIsSearchLoaded(true)
+                console.log(res)
             })
         //   searchTimer = setTimeout(() => {
         //     const url = '/api/search/' + keyword
@@ -60,7 +64,16 @@ const Search = () => {
           <ul className='search-result'>
             {
             !!searchRes.length ?
-              searchRes.map(res => <li className='result-item' key={res.symbol}>{`${res.symbol} - ${res.name}`}</li>) :
+              searchRes.map(res =>
+                <li
+                    className='result-item'
+                    key={res.symbol}
+                    onClick={() => {
+                        setTicker(res.symbol)
+                        console.log(res.symbol)
+                        setKeyword('')
+                }}>
+            {`${res.symbol} - ${res.name}`}</li>) :
               <li>no search result</li>
             }
             { !isSearchLoaded && <li>Loading...</li> }
