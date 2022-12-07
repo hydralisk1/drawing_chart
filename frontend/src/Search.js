@@ -33,7 +33,6 @@ const Search = () => {
                 setSearchRes(res)
                 setShowSearchRes(true)
                 setIsSearchLoaded(true)
-                console.log(res)
             })
         //   searchTimer = setTimeout(() => {
         //     const url = '/api/search/' + keyword
@@ -54,7 +53,7 @@ const Search = () => {
         <input
           type='text'
           onChange={searchInput}
-          onBlur={clearSearch}
+        //   onBlur={clearSearch}
           onFocus={() => {if(searchRes.length) setShowSearchRes(true)}}
           value={keyword}
           style={{width: '300px'}}
@@ -69,12 +68,13 @@ const Search = () => {
                     className='result-item'
                     key={res.symbol}
                     onClick={() => {
-                        setTicker(res.symbol)
-                        console.log(res.symbol)
+                        setTicker({symbol: res.symbol, name: res.name})
                         setKeyword('')
-                }}>
-            {`${res.symbol} - ${res.name}`}</li>) :
-              <li>no search result</li>
+                        setSearchRes([])
+                    }}
+                >
+                    {`${res.symbol} - ${res.name}`}</li>) :
+                <li>no search result</li>
             }
             { !isSearchLoaded && <li>Loading...</li> }
           </ul>

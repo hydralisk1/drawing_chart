@@ -10,11 +10,12 @@ const Dashboard = () => {
     const { ticker } = useContext(TickerContext)
 
     useEffect(() => {
+        setIsLoaded(false)
         const apiKey = 'JV5XCOLN3TAW7S49'
         const url = 'https://www.alphavantage.co/query'
         const func = 'TIME_SERIES_WEEKLY'
 
-        fetch(`${url}?function=${func}&symbol=${ticker}&apikey=${apiKey}`)
+        fetch(`${url}?function=${func}&symbol=${ticker.symbol}&apikey=${apiKey}`)
             .then(res => {
                 return res.json()
             })
@@ -29,7 +30,7 @@ const Dashboard = () => {
 
                 setAllData({
                     series: [{
-                        name: 'APPLE',
+                        name: ticker.name,
                         data
                     }],
                     categories
@@ -43,7 +44,7 @@ const Dashboard = () => {
         <div>
         <Search />
         {
-            isLoaded &&
+            isLoaded ?
             <div>
             <div>$ {price.toFixed(2)}</div>
             <Chart
@@ -57,10 +58,10 @@ const Dashboard = () => {
                         setPrice(allData.series[0].data[config.dataPointIndex] || allData.series[0].data[allData.series[0].data.length - 1])
                         // console.log(config.dataPointIndex)
                         // console.log(chartContext, config)
-                    },
+                        },
                     mouseLeave: () => {
                         setPrice(allData.series[0].data[allData.series[0].data.length - 1])
-                    }
+                        }
                     },
                 },
                 colors: ['#5ac53b'],
@@ -85,7 +86,7 @@ const Dashboard = () => {
                 // type='line'
                 height={350}
             />
-            </div>
+            </div> : 'Loading...'
         }
         </div>
     );

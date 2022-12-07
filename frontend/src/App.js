@@ -1,5 +1,4 @@
 import Dashboard from './Dashboard'
-import { useParams } from 'react-router-dom'
 
 function App() {
 
